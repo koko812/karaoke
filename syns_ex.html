@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 従来より，普通に h1 と p は流石に知っていた -->
+    <h1>Speech Synthesizer</h1>
+    <p>
+        Enter some text in the input below and press to hear it. change voices using the dropdown menu.
+    </p>
+    <!-- このあたりからマジでよくわかってない -->
+    <!-- input の種類が複数個あって，そこで結構選べるのはわかった -->
+    <!-- 補完候補が結構出てくるので，そこから選べば多分困ることはない -->
+    <!-- つまるところ，次にゲームを作るときは，この辺の input をささっといじればいいだけという話-->
+    <!-- ただ，input を次 javascript からどうやって受け取るのかが曖昧なので，そこは気をつけたい -->
+    <!-- で，css の話では，昨日みた css マスターたちは --hoge という変数定義を多用していた -->
+    <!-- ので，そこは活用していきたい -->
+    <form>
+        <input type="text" class="text" />
+        <div>
+            <!-- ここの，label は普通に p を使うのとどんな感じで使うのかがわからん -->
+            <!-- ああでも，これ多分 label を使わないと，bar の真横に文字を出すのが無理なんだろうきっと -->
+            <label for="rate">Rate</label>
+            <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" />
+            <!-- この辺りの命名規則がしっかりしててすごいと思う，後から使うことを想定するのは，最初から作るときは難しいとは思うんだけど -->
+            <div class="rate-value">1</div>
+            <div class="clearfix"></div>
+        </div>
+        <div>
+            <label for="pitch">Rate</label>
+            <!-- まあ，input type = range でスライドバーが出ることくらいは覚えとこうか -->
+            <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" />
+            <div class="rate-pitch">1</div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+    <!-- ここの，select も何をやってるのかなぞ，まあ後から選択肢を追加するんだとは思うんだけど -->
+
+    <!-- だったらば，js から追加すりゃええやんって感じもしなくはないんだけどね -->
+    <!-- というか，querySelector でコンポーネントを選ぶのは，上級者っぽいがかっこいいなと思った -->
+    <!-- jQuery とか使い慣れてる人たちはもしかするのそっちの方が直感的，というか楽なのかもしれない -->
+    <!-- まあ僕からすると，# や . の使い分けを覚えてないのであれなんだけど，今後覚えていく可能性はある -->
+    <!-- とはいえ，react や next.js, tilewindCSS で使うなら覚えるかも，って雰囲気だけどね -->
+    <select></select>
+    <script src="syns_ex.js"></script>
+</body>
+
+</html>

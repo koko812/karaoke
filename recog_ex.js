@@ -1,3 +1,6 @@
+// この最初の産業が割とかなりわからない
+// chrome とかいろんなのに対応するためみたいな感じなんだが，
+// まあ結局 chrome はどれを使ってるんだという話になってくるんだけどね
 const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
 const SpeechGrammarList = window.SpeechGrammarList || webkitSpeechGrammarList;
 const SpeechRecognitionEvent = window.SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
@@ -76,3 +79,4 @@ recognition.onresult = (event)  =>  {
 // こういうのを，デモとか作らずに，ドキュメント見ながら最適な使い方をできてしまう人は本当にすごい
 // それこそ，根っこの考え方をしっかり理解してるからそういうことができるのだろう
 // エラー処理の方法も書いてるが，一旦パスでお願い（やべーやつ）
+
