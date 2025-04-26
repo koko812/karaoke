@@ -42,18 +42,43 @@ const init = async () => {
         // byte の周波数データを ^ で定義した，byte 列の buffer で受け取るという，
         // 至極当たり前な処理
 
+        // ここから，最大点を求めるコードを書いていくんだが，
+        // 微分してる側のグラフと，そのままのグラフ両方出てきてくれたら便利な気がするんだが，
+        // canvas を二窓にするのは若干面倒なような気がしていて，ただ，
+        // ほぼほぼクローンするみたいに書けたらそれは便利かな
+        // というか普通にチェックボックスにすればいいのかという話もある気はするが
+        const subbuffer = []
+        for (let i = 0; i < bufferSize - 1; i++) {
+            subbuffer[i] = buffer[i + 1] - buffer[i]
+        }
+
         ctx.fillStyle = '#000'
         ctx.fillRect(0, 0, width, height)
 
+        let peakFlag = false;
+        let peakIndex = 0;
         for (let i = minFrequencyIndex; i < maxFrequencyIndex; i++) {
             const h = buffer[i] / 256 * height;
+            const sh = (subbuffer[i] / 256 + 0.5) * height
             // ここ，間違って，bufferSize って書いたけど，これは buffer の中のデカさの話なので，
             // uint8 に合わせて 256 にしましょうという話
             const x = (i - minFrequencyIndex) / (maxFrequencyIndex - minFrequencyIndex) * width;
             // ここも２項目を間違って，bufferSize としたが，多分 buffer の列から抜き出してるので，
             // min, max の幅にしないとダメだよという話
+            if (!peakFlag && subbuffer[i] / 256 > 0.1) {
+                peakFlag = true
+            }
+            if (peakFlag && !peakIndex && subbuffer[i] < 0 && buffer[i] / 256 > 0.4) {
+                peakIndex = i
+            }
+
             ctx.fillStyle = '#f00'
+            if (peakIndex === i) {
+                ctx.fillStyle = '#ff0' // 素晴らしくいい感じに出ています
+            }
             ctx.fillRect(x, height - h, 2, h)
+            //ctx.fillRect(x, height - sh, 2, sh) // まあみたかんじではたぶんおっけー
+
             // ここの heigth - h がかなり謎なんだがどういうことなんだろうか
             // height は下向きに伸びるので，これで正しいことは今納得した
             // width が 2 なのはテキトーなんだろうか，何段階で今回は出るの？幅的にね，周波数の分解能のこと
