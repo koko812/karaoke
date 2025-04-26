@@ -83,6 +83,16 @@ const init = async () => {
             // height は下向きに伸びるので，これで正しいことは今納得した
             // width が 2 なのはテキトーなんだろうか，何段階で今回は出るの？幅的にね，周波数の分解能のこと
             // 256 は縦の段階なんで，横の段階がね，，，ごめんそれは今パッとはわからないや
+            if (peakIndex) {
+                const peakFrequency = peakIndex / bufferSize * sampleRate
+                document.getElementById('frequency').textContent = `Frequency: ${peakFrequency} [Hz]`
+                // ここから，音階の計算だが，マジでよくわかっていないくてやばい
+                const ratio = Math.log(peakFrequency / 110) / Math.log(2);
+                const toneIndex = Math.round(((ratio + 1000) % 1) * 12);
+                const toneList = ['ラ','ラ#','シ','ド','ド#','レ','レ#','ミ','ファ','ファ#','ソ','ソ#','ラ',]
+                document.getElementById('tone').textContent  = `tone:  ${toneList[toneIndex]}`
+            }
+
         }
     }
     tick();
